@@ -1,0 +1,29 @@
+    <h2>Authorization Code Grant</h2>
+    <p>Some explainer text.</p>
+
+    <div>
+        <h2>Step 1</h2>
+        <p>Redirect the user to their identity provider, including the
+        'client_id' of your application, the scopes you want from the user,
+        where to send the user back to and state.</p>
+        <pre>
+        process.env.OKTA_OAUTH2_ISSUER + 
+                '/v1/authorize?' +
+                'client_id=' + process.env.OKTA_OAUTH2_CLIENT_ID +
+                '&response_type=code' +
+                '&redirect_uri='+ getAddressableHost(req) +'/authorization-code/callback' + 
+                '&scope= openid profile' + 
+                '&state=' + req.session.state)
+        </pre>
+        <a href="/authorization-code/oauth-login">Begin</a>
+    </div>
+
+    <div>
+        <h2>Step 2</h2>
+        <p>Perform authentication and authorization at the IDP</p>
+    </div>
+
+    <div>
+        <h2>Step 3</h2>
+        <p>Redirect the user back to the application with code.</p>
+    </div>

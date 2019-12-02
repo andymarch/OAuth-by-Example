@@ -1,0 +1,29 @@
+    <h2>Authorization Code Grant</h2>
+    <p>Some explainer text.</p>
+
+    <div>
+        <h2>Step 4</h2>
+        <p>Validate that the returned state returned matches that sent to the
+        IDP.</p>
+        <p>Call the IDP on the backchannel with the client id and secret to
+        exchange the user provided code for a token.</p>
+        <pre>
+        process.env.OKTA_OAUTH2_ISSUER + 
+                '/v1/authorize?' +
+                'client_id=' + process.env.OKTA_OAUTH2_CLIENT_ID +
+                '&response_type=code' +
+                '&redirect_uri='+ getAddressableHost(req) +'/authorization-code/callback' + 
+                '&scope=openid profile' + 
+                '&state=' + req.session.state)
+        </pre>
+        <a href="/authorization-code/login">Begin</a>
+    </div>
+
+<div>State: {{state}}</div>
+<div>Code: {{code}}</div>
+
+<div>Exchange Call: {{exchange}}</div>
+<form action="/authorization-code/callback" method="POST">
+    <input type="hidden" value="{{code}}" id="code" name="code"/>
+    <button type="submit">Exchange</button>
+</form>

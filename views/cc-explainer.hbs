@@ -1,0 +1,14 @@
+<div>
+    <h2>Client Credentials Grant</h2>
+    <p>some explainer text.</p>
+    <pre>
+        curl --request POST \
+        --url https://${yourOktaDomain}/oauth2/default/v1/token \
+        --header 'accept: application/json' \
+        --header 'authorization: Basic **base64 of client_id & client_secret' \
+        --header 'cache-control: no-cache' \
+        --header 'content-type: application/x-www-form-urlencoded' \
+        --data 'grant_type=client_credentials&scope=customScope'
+    </pre>
+    <a href="/client-credentials/login">Begin</a>
+</div>

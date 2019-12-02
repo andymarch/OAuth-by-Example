@@ -40,20 +40,30 @@ class Auth {
             }
         }
         if(req.session.user){
-            var atob = require('atob');
-              var base64Url = req.session.user.id_token.split('.')[1];
-              var base64 = base64Url.replace('-', '+').replace('_', '/');
-              var token = JSON.parse(atob(base64))
-            req.userContext = {
-                'userinfo': {
-                    'sub' : token.sub,
-                    'family_name' : token.name,
-                    'givenName': token.name,
-                    'preferred_username': token.preferred_username
-                },
-                'tokens': {
-                    'access_token': req.session.user.access_token,
-                    'id_token': req.session.user.id_token
+            if(req.session.user.id_token){
+                var atob = require('atob');
+                var base64Url = req.session.user.id_token.split('.')[1];
+                var base64 = base64Url.replace('-', '+').replace('_', '/');
+                var token = JSON.parse(atob(base64))
+                req.userContext = {
+                    'userinfo': {
+                        'sub' : token.sub,
+                        'family_name' : token.name,
+                        'givenName': token.name,
+                        'preferred_username': token.preferred_username
+                    },
+                    'tokens': {
+                        'access_token': req.session.user.access_token,
+                        'id_token': req.session.user.id_token,
+                        'refresh_token':req.session.user.refresh_token
+                    }
+                }
+            }
+            else {
+                req.userContext = {
+                    'tokens': {
+                        'access_token': req.session.user.access_token,
+                    }
                 }
             }
         }
@@ -65,6 +75,17 @@ class Auth {
             }
         }
         return next();
+    }
+
+    getAddressableHost(req){
+        let protocol = "http"
+        if(req.secure){
+            protocol = "https"
+        }
+        else if(req.get('x-forwarded-proto')){
+            protocol = req.get('x-forwarded-proto').split(",")[0]
+        }
+        return protocol+"://"+req.headers.host
     }
 }
 

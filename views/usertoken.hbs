@@ -1,13 +1,25 @@
-<h2>ID Token</h2>
-<pre>{{jwt idToken}}</pre>
+{{#if idToken}}
+    <h2>ID Token</h2>
+    <img src="/static/images/openid_logo.png"/>
+    <pre>{{jwt idToken}}</pre>
+{{else}}
+    <p>oidc to get the id token</p>
+    <a href="/authorization-code/oidc-login">Begin</a>
+{{/if}}
 
 <h2>Access Token</h2>
+<img src="/static/images/oauth_logo.png"/>
 <pre>{{jwt accessToken}}</pre>
 
 {{#if refreshToken}}
-<h2>Refresh Token</h2>
-<pre>{{refreshToken}}</pre>
-<a href="/refresh-user">Refresh access token</a>
+    <h2>Refresh Token</h2>
+    <pre>{{refreshToken}}</pre>
+    <a href="/authorization-code/refresh">Refresh access token</a>
+{{else}}
+    {{#if idToken}}
+        <p>oidc to get the refresh token</p>
+    <a href="/authorization-code/oidc-login-withrefresh">Begin</a>
+    {{/if}}
 {{/if}}
 
 <a href="/logout">Logout</a>
