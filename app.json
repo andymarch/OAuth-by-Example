@@ -1,0 +1,15 @@
+{
+    "name": "OAuth and OIDC by Example",
+    "description": "A demonstration of OAuth and OIDC with Okta.",
+    "repository": "https://github.com/andymarch/OAuth-by-Example",
+    "logo": "https://www.okta.com/sites/all/themes/Okta/images/logos/developer/Dev_Logo-02_Large.png",
+    "keywords": ["oauth", "oidc", "okta"],
+    "addons": [ "okta" ],
+    "env": {
+        "OKTA_OAUTH2_AUDIENCE": {
+          "description": "The value against which token audience is checked, using default from Okta custom Authz.",
+          "value": "api://default"
+        }
+    }
+  }
+  
