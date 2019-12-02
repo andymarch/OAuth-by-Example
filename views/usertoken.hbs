@@ -1,0 +1,13 @@
+<h2>ID Token</h2>
+<pre>{{jwt idToken}}</pre>
+
+<h2>Access Token</h2>
+<pre>{{jwt accessToken}}</pre>
+
+{{#if refreshToken}}
+<h2>Refresh Token</h2>
+<pre>{{refreshToken}}</pre>
+<a href="/refresh-user">Refresh access token</a>
+{{/if}}
+
+<a href="/logout">Logout</a>
