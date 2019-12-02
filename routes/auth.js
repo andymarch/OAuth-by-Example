@@ -8,11 +8,11 @@ var base64 = require('base-64');
 module.exports = function (_auth){
     auth = _auth;
 
-    router.get('/login', (req,res) =>{
+    router.get('/authorization-code/login', (req,res) =>{
         req.session.state = uuidv1();
         res.redirect(process.env.OKTA_OAUTH2_ISSUER + 
             '/v1/authorize?' +
-            'client_id=' + process.env.OKTA_OAUTH2_CLIENT_ID +
+            'client_id=' + process.env.OKTA_OAUTH2_CLIENT_ID_WEB +
             '&response_type=code' +
             '&redirect_uri='+ getAddressableHost(req) +'/authorization-code/callback' + 
             '&scope= openid profile' + 
@@ -70,7 +70,7 @@ module.exports = function (_auth){
             {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                'authorization': "Basic "+base64.encode(process.env.OKTA_OAUTH2_CLIENT_ID+":"+process.env.OKTA_OAUTH2_CLIENT_SECRET)
+                'authorization': "Basic "+base64.encode(process.env.OKTA_OAUTH2_CLIENT_ID_WEB+":"+process.env.OKTA_OAUTH2_CLIENT_SECRET_WEB)
             }
             }
             )
@@ -115,9 +115,9 @@ module.exports = function (_auth){
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                         'authorization': "Basic " + base64.encode(
-                            process.env.OKTA_OAUTH2_CLIENT_ID 
+                            process.env.OKTA_OAUTH2_CLIENT_ID_WEB 
                             + ":" +
-                            process.env.OKTA_OAUTH2_CLIENT_SECRET
+                            process.env.OKTA_OAUTH2_CLIENT_SECRET_WEB
                         )
                     }
                 }

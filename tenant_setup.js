@@ -7,13 +7,13 @@ configureScope()
 async function configureScope(){
     try {
         var serverList = await axios.get(
-            process.env.OKTA_OAUTH2_ISSUER.split("/oauth2/default")[0] + '/api/v1/authorizationServers')
+            process.env.OKTA_CLIENT_ORGURL + '/api/v1/authorizationServers')
         
         //this is only true for new tenants
         var authzId = serverList.data[0].id
 
         await axios.post(
-        process.env.OKTA_OAUTH2_ISSUER.split("/oauth2/default")[0] + '/api/v1/authorizationServers/'+authzId+'/scopes',
+        process.env.OKTA_CLIENT_ORGURL+ '/api/v1/authorizationServers/'+authzId+'/scopes',
         {
             "description": "Allows the execution of a demonstration.",
             "name": "demonstration:perform",
