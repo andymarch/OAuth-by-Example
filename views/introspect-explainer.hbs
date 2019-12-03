@@ -1,0 +1,22 @@
+<p>Introspection of a token performs the validation of a token at the IDP. In
+addition to the normal validation a additional check is made to ensure that the
+token has not been revoked. This means that a token which would otherwise would
+be accepted can be invalidated.</p>
+
+<p>The address for introspection can be found on
+<a href="{{issuer}}/.well-known/oauth-authorization-server">the .well-known
+document</a> for our issuer. Within this we can look for the introspection_endpoint.</p>
+<p>Introspection is an authenticated action so the id and secret of the client
+should be included with the request.</p>
+
+<div class="prewrap">
+<pre>
+    POST {{issuer}}/v1/introspect \
+    -H 'Accept: application/json' \
+    -H 'Authorization: Basic base64({{client_id}}:client_secret)' \
+    -H 'cache-control: no-cache' \
+    -d 'token=token_type_hint=access_token&token={{access_token}}'
+</pre>
+</div>
+
+<a href="/introspect/submit">Perform introspection</a>

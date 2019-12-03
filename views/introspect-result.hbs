@@ -1,0 +1,14 @@
+{{#if success}}
+Token introspection was completed successfully.
+
+Okta returned the following data.
+The <span class="code">"active" : true</span> value indicates that the provided
+access token is still valid and has not been revoked.
+<pre>
+{{json response}}
+</pre>
+<a href="/">Return</a>
+{{else}}
+Token failed introspection.
+<a href="/">Return</a>
+{{/if}}

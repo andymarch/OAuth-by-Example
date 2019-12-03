@@ -50,10 +50,12 @@ var indexRouter = require('./routes/index')(auth)
 var acRouter = require('./routes/ac')(auth)
 var ccRouter = require('./routes/cc')(auth)
 var verifyRouter = require('./routes/verify')(auth)
+var introspectRouter = require('./routes/introspect')(auth)
 
 app.use('/', indexRouter)
 app.use('/authorization-code', acRouter)
 app.use('/client-credentials', ccRouter)
 app.use('/verify',verifyRouter)
+app.use('/introspect',introspectRouter)
 
 app.listen(PORT, () => console.log('App started on '+PORT));
