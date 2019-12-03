@@ -32,39 +32,6 @@ module.exports = function (_auth){
             '&state=' + req.session.state)
     })
 
-    router.get('/oauth-login', (req,res) =>{
-        req.session.state = uuidv1();
-        res.redirect(process.env.OKTA_OAUTH2_ISSUER + 
-            '/v1/authorize?' +
-            'client_id=' + process.env.OKTA_OAUTH2_CLIENT_ID_WEB +
-            '&response_type=code' +
-            '&redirect_uri='+ auth.getAddressableHost(req) +'/authorization-code/callback' + 
-            '&scope=demonstration:perform' + 
-            '&state=' + req.session.state)
-    })
-
-    router.get('/oidc-login', (req,res) =>{
-        req.session.state = uuidv1();
-        res.redirect(process.env.OKTA_OAUTH2_ISSUER + 
-            '/v1/authorize?' +
-            'client_id=' + process.env.OKTA_OAUTH2_CLIENT_ID_WEB +
-            '&response_type=code' +
-            '&redirect_uri='+ auth.getAddressableHost(req) +'/authorization-code/callback' + 
-            '&scope=openid profile demonstration:perform' + 
-            '&state=' + req.session.state)
-    })
-
-    router.get('/oidc-login-withrefresh', (req,res) =>{
-        req.session.state = uuidv1();
-        res.redirect(process.env.OKTA_OAUTH2_ISSUER + 
-            '/v1/authorize?' +
-            'client_id=' + process.env.OKTA_OAUTH2_CLIENT_ID_WEB +
-            '&response_type=code' +
-            '&redirect_uri='+ auth.getAddressableHost(req) +'/authorization-code/callback' + 
-            '&scope=openid profile demonstration:perform offline_access' + 
-            '&state=' + req.session.state)
-    })
-
     router.get("/callback", (req,res) => {
         if(req.query.state === req.session.state)
         {
@@ -114,7 +81,7 @@ module.exports = function (_auth){
                     'access_token': tokenresponse.data.access_token
                 }
             }
-            res.redirect("/authorization-code/user-token")
+            res.redirect("/authorization-code/token")
         }
         catch(err){
             console.log(err)
@@ -162,7 +129,7 @@ module.exports = function (_auth){
                 'access_token': tokenresponse.data.access_token
             }
         }
-        res.redirect("/authorization-code/user-token")
+        res.redirect("/authorization-code/token")
         }
         catch(err){
             console.log(err)
@@ -176,7 +143,7 @@ module.exports = function (_auth){
         } 
     })
 
-    router.get("/user-token", auth.ensureAuthenticated(), (req,res) => {
+    router.get("/token", auth.ensureAuthenticated(), (req,res) => {
         res.render('usertoken',
         { 
             accessToken: req.userContext.tokens.access_token,

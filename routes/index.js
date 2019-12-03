@@ -13,16 +13,10 @@ module.exports = function (_auth){
             res.render('index',{hasIdentity:true,access_token:req.serverContext.tokens.access_token})
         }
         else{
-            res.render('index');
+            res.render('index')
         }
     });
 
-    router.get("/service-token", (req,res) => {
-        res.render('servicetoken',
-        { 
-            accessToken: req.serverContext.tokens.access_token,
-        })
-    })
 
     router.get("/logout", (req, res) => {
         if(req.userContext){

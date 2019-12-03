@@ -34,7 +34,7 @@ module.exports = function (_auth){
             {
                 'access_token': response.data.access_token
             }
-            res.redirect("/service-token")
+            res.redirect("/client-credentials/token")
         }
         catch(err){
             console.log(err)
@@ -46,6 +46,13 @@ module.exports = function (_auth){
             res.status(err.status || 500);
             res.render('error', { title: 'Error' });
         } 
+    })
+
+    router.get("/token", (req,res) => {
+        res.render('servicetoken',
+        { 
+            accessToken: req.serverContext.tokens.access_token,
+        })
     })
 
     return router;

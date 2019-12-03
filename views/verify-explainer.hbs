@@ -1,0 +1,13 @@
+<p>Signed JSON Web Tokens (JWTs) are verified by retrieving the public keys of
+the issuer to check the validity of the signature, checking the expiry claim
+(exp) on the token and checking the audience is correct for the validating
+service.</p>
+
+<p>Our tokens are issued by {{issuer}}. We can find the public keys of this IDP
+by checking 
+<a href="{{issuer}}/.well-known/oauth-authorization-server">the .well-known endpoint</a>. Within this we can look for
+the jwks_uri statement to find the public keys of the server, <a href="{{issuer}}/v1/keys">here.</a></p>
+<p>Our audience is set to {{audience}}</p>
+<p>The token expiry is {{expiry}}</p>
+
+<a href="/verify/submit">Perform verification</a>

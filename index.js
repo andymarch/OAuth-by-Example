@@ -49,9 +49,11 @@ app.use(auth.setContext)
 var indexRouter = require('./routes/index')(auth)
 var acRouter = require('./routes/ac')(auth)
 var ccRouter = require('./routes/cc')(auth)
+var verifyRouter = require('./routes/verify')(auth)
 
 app.use('/', indexRouter)
 app.use('/authorization-code', acRouter)
 app.use('/client-credentials', ccRouter)
+app.use('/verify',verifyRouter)
 
 app.listen(PORT, () => console.log('App started on '+PORT));

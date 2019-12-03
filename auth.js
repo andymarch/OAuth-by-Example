@@ -1,4 +1,5 @@
 const OktaJwtVerifier = require('@okta/jwt-verifier');
+var atob = require('atob');
 
 const oktaJwtVerifier = new OktaJwtVerifier({
     issuer: process.env.OKTA_OAUTH2_ISSUER,
@@ -41,10 +42,7 @@ class Auth {
         }
         if(req.session.user){
             if(req.session.user.id_token){
-                var atob = require('atob');
-                var base64Url = req.session.user.id_token.split('.')[1];
-                var base64 = base64Url.replace('-', '+').replace('_', '/');
-                var token = JSON.parse(atob(base64))
+                var token = decodeToken(req.session.user.id_token)
                 req.userContext = {
                     'userinfo': {
                         'sub' : token.sub,
@@ -86,6 +84,21 @@ class Auth {
             protocol = req.get('x-forwarded-proto').split(",")[0]
         }
         return protocol+"://"+req.headers.host
+    }
+
+    getAccessToken(req){
+        if(req.session.user){
+            return req.userContext.tokens.access_token
+        }
+        else if(req.session.server){
+            return req.serverContext.tokens.access_token
+        }
+    }
+
+    decodeToken(token){
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace('-', '+').replace('_', '/');
+        return JSON.parse(atob(base64))
     }
 }
 
