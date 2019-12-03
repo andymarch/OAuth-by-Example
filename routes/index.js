@@ -7,7 +7,10 @@ module.exports = function (_auth){
 
     router.get('/', (req, res) => {
         if(req.session.user){
-            res.render('index',{hasIdentity:true})
+            res.render('index',{hasIdentity:true,access_token:req.userContext.tokens.access_token})
+        }
+        else if(req.session.server){
+            res.render('index',{hasIdentity:true,access_token:req.serverContext.tokens.access_token})
         }
         else{
             res.render('index');

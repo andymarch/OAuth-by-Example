@@ -1,7 +1,7 @@
 html, body {
     margin: 0;
     padding: 0px;
-    background: #20313b;
+    background: #153b56;
     font-family: 'Open Sans', sans-serif;
     color: #d2d2d6;
 }
@@ -11,14 +11,13 @@ html, body {
 }
 
 .footer {
-    border-top: 1px dashed #d2d2d6; 
     height: 49px;
     display: flex;
+    justify-content: flex-end;
 }
 
 .footer p {
-    margin: auto;
-    text-align: center; 
+    padding: 10px;
 }
 
 #flow{
@@ -44,32 +43,29 @@ html, body {
     flex-wrap: wrap;
     align-items: center;
     font-weight: lighter;
-    border-bottom: 1px solid #d2d2d6;
+    margin-top: 20px;;
 }
 
-.stage h1,h2,h3,h4 {
+h1,h2,h3,h4 {
     font-family: 'Montserrat', sans-serif;
     text-align: center;
     margin: 0 0;
     color: #fff;
+    font-weight: 300;
+}
+
+.masthead{
+    font-weight: bolder;
 }
 
 .stage-content {
-    background: #153b56;
     width: 100%;
     text-align: center;
 }
 
 .stageheader {
     width: 100%;
-    background: #153b56;
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-.stage-complete {
-    color: greenyellow;
-    font-size: x-large;
+    padding-top: 20px;
     padding-bottom: 10px;
 }
 
@@ -95,9 +91,7 @@ html, body {
     height: 100%;
     box-shadow: 0 6px 25px 0 rgba(5,5,5,.3);
     min-height: 200px;
-  }
-
-.stage:nth-child(even) {background: #e0e0e0;}
+}
 
 p {
     font-weight: lighter;

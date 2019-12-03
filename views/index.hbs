@@ -1,11 +1,13 @@
 <div id="flow">
     <div class="stage">
-        <h1 class="stageheader">STAGE 1<br/>Get an Identity</h1>
         {{#if hasIdentity}}
+        <h1 class="stageheader">Identity</h1>
          <div class="stage-content">
-             <i class="far fa-check-circle stage-complete"></i>
+             <pre>{{jwt access_token}}</pre>
+             <a href="/logout">Discard identity</a>
          </div>
         {{else}}
+        <h1 class="stageheader">Get an Identity</h1>
         <div class="stage-content">
             <div class="stage-explainer">
                 Select an identity type, different applications types use
@@ -39,16 +41,73 @@
         </div>
         {{/if}}
     </div>
+    
+    {{#if hasIdentity}}
+        <div class="stage">
+            <h1>Validate the token</h1>
 
-    <div class="stage">
-        <h1>STAGE 2<br/>Validate the token</h1>
-    </div>
-
-    <div class="stage">
-        <h1>STAGE 3<br/>Introspect the token</h1>
-    </div>
-
-    <div class="stage">
-        <h1>STAGE 4<br/>Revoke the token</h1>
-    </div>
+                <div class="stage-content">
+                <div class="stage-explainer">
+                    <p>Once you have a identity you can use the access token associated
+                    with that identity to access resources.
+                    </p>
+                    <p>Any application recieving an access token should check
+                    its validity, this can be done in two ways.</p>
+                </div>
+                <div class="action-cards">
+                    <div class="action-card">
+                        <div class="card-header">
+                            Validate Token
+                        </div>
+                        <div class="card-content">
+                            <p>Providing access tokens as JSON Web Tokens (JWTs)
+                            allows for the verification of the token without calling
+                            the IDP.</p>
+                            <div class="card-action">
+                            <a href="/verify">Verify</a>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="action-card">
+                        <div class="card-header">
+                            Introspect
+                        </div>
+                        <div class="card-content">
+                            <p>An application can call the IDP to ensure that a
+                            token has not been revoked.</p>
+                            <div class="card-action"><a href="/introspect">Introspect</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="stage">
+            <h1>Invalidate the token</h1>
+                <div class="stage-content">
+                <div class="stage-explainer">
+                    <p>
+                        Once an access token is no longer needed revocation can
+                        be performed to invalidate that token.
+                    </p>
+                    <p>
+                        After revocation validation will pass until the token 
+                        expires but introspection will fail.
+                    </p>
+                </div>
+                <div class="action-cards">
+                    <div class="action-card">
+                        <div class="card-header">
+                            Revoke
+                        </div>
+                        <div class="card-content">
+                            <p>Once an access token is no longer needed (the user
+                            logs out) revocation can be performed to invalidate that
+                            token.</p>
+                            <div class="card-action"><a href="/Revoke">Revoke</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{/if}}
 </div>
