@@ -10,5 +10,12 @@ access token is still valid and has not been revoked.
 <a href="/">Return</a>
 {{else}}
 Token failed introspection.
+
+Okta returned the following data.
+The <span class="code">"active" : false</span> value indicates that the provided
+access token is not longer valid.
+<pre>
+{{json response}}
+</pre>
 <a href="/">Return</a>
 {{/if}}

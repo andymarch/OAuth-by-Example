@@ -1,5 +1,5 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
 const axios = require('axios')
 var base64 = require('base-64')
 const qs = require('querystring')
@@ -8,7 +8,7 @@ module.exports = function (_auth){
     var auth = _auth;
 
     router.get('/',(req, res) => {
-        res.render('introspect-explainer', {
+        res.render('revocation-explainer', {
             issuer: process.env.OKTA_OAUTH2_ISSUER,
             access_token: auth.getAccessToken(req),
             client_id: process.env.OKTA_OAUTH2_CLIENT_ID_WEB
@@ -16,7 +16,7 @@ module.exports = function (_auth){
     });
 
     router.get('/submit', (req,res) => {
-        axios.post(process.env.OKTA_OAUTH2_ISSUER + '/v1/introspect',
+        axios.post(process.env.OKTA_OAUTH2_ISSUER + '/v1/revoke',
             qs.stringify({
                             token_type_hint: 'access_token',
                             token: auth.getAccessToken(req)
@@ -29,7 +29,7 @@ module.exports = function (_auth){
         })     
         .then(response => {
             req.session.introspect = response.data
-            res.redirect("/introspect/result")
+            res.redirect("/revoke/success")
         })
         .catch(err => {
             console.log(err)
@@ -43,11 +43,9 @@ module.exports = function (_auth){
         })
     })
 
-    router.get('/result',(req,res)=>{
-        var response = req.session.introspect
-        req.session.introspect = null
-        res.render('introspect-result',{success:response.active, response: response})
-    })
+    router.get('/success', (req,res) => {
+        res.render('revocation-success',{jti: auth.decodeToken(auth.getAccessToken(req)).jti})
+    });
 
     return router;
 }

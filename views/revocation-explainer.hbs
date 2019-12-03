@@ -1,0 +1,21 @@
+<p>Revocation can be performed on an access or a refresh token. Revoking an
+access token does not revoke the associated refresh token. Revoking a refresh
+token will revoke the associated access token</p>
+
+<p>The address for revocation can be found on
+<a href="{{issuer}}/.well-known/oauth-authorization-server">the .well-known
+document</a> for our issuer. Within this we can look for the revocation_endpoint.</p>
+<p>Revocation is an authenticated action so the id and secret of the client
+should be included with the request.</p>
+
+<div class="prewrap">
+<pre>
+    POST {{issuer}}/v1/revoke \
+    -H 'Accept: application/json' \
+    -H 'Authorization: Basic base64({{client_id}}:client_secret)' \
+    -H 'cache-control: no-cache' \
+    -d 'token=token_type_hint=access_token&token={{access_token}}'
+</pre>
+</div>
+
+<a href="/revoke/submit">Perform Revocation</a>

@@ -51,11 +51,13 @@ var acRouter = require('./routes/ac')(auth)
 var ccRouter = require('./routes/cc')(auth)
 var verifyRouter = require('./routes/verify')(auth)
 var introspectRouter = require('./routes/introspect')(auth)
+var revokeRouter = require('./routes/revoke')(auth)
 
 app.use('/', indexRouter)
 app.use('/authorization-code', acRouter)
 app.use('/client-credentials', ccRouter)
-app.use('/verify',verifyRouter)
-app.use('/introspect',introspectRouter)
+app.use('/verify', verifyRouter)
+app.use('/introspect', introspectRouter)
+app.use('/revoke', revokeRouter)
 
 app.listen(PORT, () => console.log('App started on '+PORT));
