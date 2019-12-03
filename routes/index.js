@@ -6,7 +6,12 @@ module.exports = function (_auth){
     var auth = _auth;
 
     router.get('/', (req, res) => {
-        res.render('index');
+        if(req.session.user){
+            res.render('index',{hasIdentity:true})
+        }
+        else{
+            res.render('index');
+        }
     });
 
     router.get("/service-token", (req,res) => {

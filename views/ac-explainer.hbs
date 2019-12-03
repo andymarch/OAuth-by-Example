@@ -1,29 +1,50 @@
+<div id="flow">
     <h2>Authorization Code Grant</h2>
-    <p>Some explainer text.</p>
+    <p>
+        The authorization code grant is the most secure grant type for user
+    driven authorization. This grant type consists of a two channels; the front
+    and back channels. Redirects in the user's browser comprise the 
+    front-channel. This is needed to make sure the user is only entering credentials
+    into their IDP and that they are informed of the action. The back-channel is
+    a normal server to server connection between the 'client' and the 'idp',
+    this allows for the exchange of secrets (the client secret and the user token).
+    </p>
 
-    <div>
-        <h2>Step 1</h2>
-        <p>Redirect the user to their identity provider, including the
-        'client_id' of your application, the scopes you want from the user,
-        where to send the user back to and state.</p>
-        <pre>
-        process.env.OKTA_OAUTH2_ISSUER + 
-                '/v1/authorize?' +
-                'client_id=' + process.env.OKTA_OAUTH2_CLIENT_ID +
-                '&response_type=code' +
-                '&redirect_uri='+ getAddressableHost(req) +'/authorization-code/callback' + 
-                '&scope= openid profile' + 
-                '&state=' + req.session.state)
-        </pre>
-        <a href="/authorization-code/oauth-login">Begin</a>
-    </div>
+    <form method="POST" action="/authorization-code/login">
+        <div>
 
-    <div>
-        <h2>Step 2</h2>
-        <p>Perform authentication and authorization at the IDP</p>
-    </div>
+            <div>
+                {{authorize_url}}?
+            </div>
 
-    <div>
-        <h2>Step 3</h2>
-        <p>Redirect the user back to the application with code.</p>
-    </div>
+            <div>
+                <label>client_id=</label>
+                <input id="client_id" name="client_id" value="{{client_id_web}}"/>
+            </div>
+            <div>
+                <label>&response_type=</label>
+                <input id="code" name="code" value="{{response_type}}"/>
+            </div>
+            <div>
+                <label>&redirect_uri=</label>
+                <input id="redirect_uri" name="redirect_uri" value="{{redirect_uri}}"/>
+            </div>
+            <div>
+                <label>&state=</label>
+                <input id="state" name="state" value="{{state}}"/>
+            </div>
+            <div>
+                <label>&nonce=</label>
+                <input id="nonce" name="nounce" value="{{nonce}}"/>
+            </div>
+            <div>
+                <label>&scope=</label>
+                <input type="text" value="{{scope}}" id="scope" name="scope">
+            </div>
+        </div>
+
+        <div>
+            <input type="submit" class="linkButton" value="Begin"/>
+        </div>
+    </form>
+</div>

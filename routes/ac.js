@@ -9,8 +9,28 @@ module.exports = function (_auth){
     var auth = _auth;
 
     router.get('/', (req, res) => {
-        res.render('ac-explainer');
+        res.render('ac-explainer',
+        {
+            authorize_url:process.env.OKTA_OAUTH2_ISSUER + '/v1/authorize',
+            client_id_web: process.env.OKTA_OAUTH2_CLIENT_ID_WEB,
+            redirect_uri: auth.getAddressableHost(req) +'/authorization-code/callback',
+            response_type: 'code',
+            scope: 'demonstration:perform',
+            state: uuidv1(),
+            nonce: uuidv1()
+        });
     });
+
+    router.post('/login', (req,res) => {
+        req.session.state = req.body.state
+        res.redirect(process.env.OKTA_OAUTH2_ISSUER + 
+            '/v1/authorize?' +
+            'client_id=' + req.body.client_id +
+            '&response_type=code' +
+            '&redirect_uri='+ auth.getAddressableHost(req) +'/authorization-code/callback' + 
+            '&scope='+ req.body.scope +
+            '&state=' + req.session.state)
+    })
 
     router.get('/oauth-login', (req,res) =>{
         req.session.state = uuidv1();

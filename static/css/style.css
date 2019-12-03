@@ -1,0 +1,133 @@
+html, body {
+    margin: 0;
+    padding: 0px;
+    background: #20313b;
+    font-family: 'Open Sans', sans-serif;
+    color: #d2d2d6;
+}
+
+.content {
+    min-height: calc(100vh - 50px);
+}
+
+.footer {
+    border-top: 1px dashed #d2d2d6; 
+    height: 49px;
+    display: flex;
+}
+
+.footer p {
+    margin: auto;
+    text-align: center; 
+}
+
+#flow{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    font-weight: lighter;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    font-weight: lighter;
+}
+
+.stage {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    font-weight: lighter;
+    border-bottom: 1px solid #d2d2d6;
+}
+
+.stage h1,h2,h3,h4 {
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    margin: 0 0;
+    color: #fff;
+}
+
+.stage-content {
+    background: #153b56;
+    width: 100%;
+    text-align: center;
+}
+
+.stageheader {
+    width: 100%;
+    background: #153b56;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.stage-complete {
+    color: greenyellow;
+    font-size: x-large;
+    padding-bottom: 10px;
+}
+
+.stage-explainer {
+    text-align: center;
+}
+
+.action-cards {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.action-card {
+    margin: 20px;
+    background: #142430;
+    max-width:20%;
+    padding:10px;
+    height: 100%;
+    box-shadow: 0 6px 25px 0 rgba(5,5,5,.3);
+    min-height: 200px;
+  }
+
+.stage:nth-child(even) {background: #e0e0e0;}
+
+p {
+    font-weight: lighter;
+}
+
+a{
+    color: #e22866;
+    text-decoration: dotted;
+}
+
+.card-header {
+    display: flex;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    margin: 0 0;
+    color: #fff;
+    font-size: larger;
+    font-weight: bolder;
+}
+
+.card-content{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.linkButton { 
+    background: none;
+    border: none;
+    color: #e22866;
+    text-decoration: dotted;
+    cursor: pointer; 
+}

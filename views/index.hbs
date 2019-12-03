@@ -1,13 +1,54 @@
-<h1>OAuth & OIDC by example</h1>
+<div id="flow">
+    <div class="stage">
+        <h1 class="stageheader">STAGE 1<br/>Get an Identity</h1>
+        {{#if hasIdentity}}
+         <div class="stage-content">
+             <i class="far fa-check-circle stage-complete"></i>
+         </div>
+        {{else}}
+        <div class="stage-content">
+            <div class="stage-explainer">
+                Select an identity type, different applications types use
+                differnt OAuth grant types.
+            </div>
+            <div class="action-cards">
+                <div class="action-card">
+                    <div class="card-header">
+                        User to Service
+                    </div>
+                    <div class="card-content">
+                        <p>Create a token as user of this service to
+                        authenticate to this and related services.</p>
+                        <div class="card-action">
+                        <a href="/authorization-code">Authentication Code Grant
+                        Type</a>
+                    </div>
+                    </div>
+                </div>
+                <div class="action-card">
+                    <div class="card-header">
+                        Service to Service
+                    </div>
+                    <div class="card-content">
+                        <p>Create a token with the identity of this service to authenticate to another.</p>
+                        <div class="card-action"><a href="/client-credentials">Client Credentials Grant Type</a></div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        {{/if}}
+    </div>
 
+    <div class="stage">
+        <h1>STAGE 2<br/>Validate the token</h1>
+    </div>
 
-<div>
-    <h2>Confidential Server Apps</h2>
-    <a href="/authorization-code">AC</a>
-</div>
+    <div class="stage">
+        <h1>STAGE 3<br/>Introspect the token</h1>
+    </div>
 
-
-<div>
-<h2>Machine to Machine</h2>
-<a href="/client-credentials">CC</a>
+    <div class="stage">
+        <h1>STAGE 4<br/>Revoke the token</h1>
+    </div>
 </div>
