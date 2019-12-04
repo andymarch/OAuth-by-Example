@@ -44,7 +44,7 @@ module.exports = function (_auth){
     })
 
     router.get('/success', (req,res) => {
-        res.render('revocation-success',{jti: auth.decodeToken(auth.getAccessToken(req)).jti})
+        res.render('revocation-result',{jti: auth.decodeToken(auth.getAccessToken(req)).jti})
     });
 
     return router;
