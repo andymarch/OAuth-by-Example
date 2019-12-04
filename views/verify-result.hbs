@@ -1,7 +1,11 @@
-{{#if success}}
-Token verification was completed successfully.
-<a href="/">Return</a>
-{{else}}
-Token failed verification.
-<a href="/">Return</a>
-{{/if}}
+<div class="flow contained">
+    <h2>Token Verification</h2>
+    {{#if success}}
+    <p>The token passed verification.</p>
+    {{else}}
+    <p>Token failed verification.</p>
+    {{/if}}
+    <div>
+        <a class="linkButton" href="/">Return</a>
+    </div>
+</div>

@@ -1,21 +1,42 @@
-<p>Revocation can be performed on an access or a refresh token. Revoking an
-access token does not revoke the associated refresh token. Revoking a refresh
-token will revoke the associated access token</p>
+<div class="flow contained">
+    <h2>Token revocation</h2>
+    <p>Revocation can be performed on an access or a refresh token. Revoking an
+    access token does not revoke the associated refresh token. Revoking a refresh
+    token will revoke the associated access token</p>
 
-<p>The address for revocation can be found on
-<a href="{{issuer}}/.well-known/oauth-authorization-server">the .well-known
-document</a> for our issuer. Within this we can look for the revocation_endpoint.</p>
-<p>Revocation is an authenticated action so the id and secret of the client
-should be included with the request.</p>
+    <p>The address for revocation can be found on
+    <a href="{{issuer}}/.well-known/oauth-authorization-server">the .well-known
+    document</a> for our issuer. Within this we can look for the revocation_endpoint.</p>
+    <p>Revocation is an authenticated action so the id and secret of the client
+    should be included with the request.</p>
 
-<div class="prewrap">
-<pre>
-    POST {{issuer}}/v1/revoke \
-    -H 'Accept: application/json' \
-    -H 'Authorization: Basic base64({{client_id}}:client_secret)' \
-    -H 'cache-control: no-cache' \
-    -d 'token=token_type_hint=access_token&token={{access_token}}'
-</pre>
+    <div class="callExplainer">
+        <div class="callExplanation">
+            The IDP's introspect endpoint endpoint post the request to<br/>
+            Accept a JSON response<br/>
+            Authentication with a base64 of 'client_id : client_secret'<br/>
+            Identify the type of token which is being submitted<br/>
+            The token to be introspected
+        </div>
+
+        <div class="callLinker">
+            <i class="fas fa-long-arrow-alt-right"></i><br/>
+            <i class="fas fa-long-arrow-alt-right"></i><br/>
+            <i class="fas fa-long-arrow-alt-right"></i><br/>
+            <i class="fas fa-long-arrow-alt-right"></i><br/>
+            <i class="fas fa-long-arrow-alt-right"></i>
+        </div>
+
+        <div class="code callDetail">
+            POST {{issuer}}/v1/revoke <br/>
+            -H 'Accept: application/json' <br/>
+            -H 'Authorization: Basic base64({{client_id}}:client_secret)' <br/>
+            -d 'token_type_hint=access_token<br/>
+            &token={{access_token}}'
+        </div>
+    </div>
+
+    <div>
+        <a class="linkButton" href="/revoke/submit">Perform Revocation</a>
+    </div>
 </div>
-
-<a href="/revoke/submit">Perform Revocation</a>

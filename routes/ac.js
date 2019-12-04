@@ -16,8 +16,7 @@ module.exports = function (_auth){
             redirect_uri: auth.getAddressableHost(req) +'/authorization-code/callback',
             response_type: 'code',
             scope: 'demonstration:perform',
-            state: uuidv1(),
-            nonce: uuidv1()
+            state: uuidv1()
         });
     });
 
@@ -43,7 +42,7 @@ module.exports = function (_auth){
                 }
             }
             else {
-                    res.render('ac-callback',{state:req.query.state, code: req.query.code})
+                    res.render('ac-callback',{state:req.query.state, code: req.query.code, sent_state: req.session.state})
             }
         }
         else{
@@ -85,13 +84,20 @@ module.exports = function (_auth){
         }
         catch(err){
             console.log(err)
-            // set locals, only providing error in development
-            res.locals.message = err.message;
-            res.locals.error = req.app.get('env') === 'development' ? err : {};
+            if(err.response.data.error_description){
+                res.status(err.status || 500);
+                res.render('error', { title: 'Error',message: err.response.data.error_description });
+            }
+            else{
+                console.log(err)
+                // set locals, only providing error in development
+                res.locals.message = err.message;
+                res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-            // render the error page
-            res.status(err.status || 500);
-            res.render('error', { title: 'Error' });
+                // render the error page
+                res.status(err.status || 500);
+                res.render('error', { title: 'Error' });
+            }
         } 
     })
 

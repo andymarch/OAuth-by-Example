@@ -11,10 +11,13 @@ module.exports = function (_auth){
         });
 
     router.get('/',(req, res) => {
+        var token = auth.decodeToken(auth.getAccessToken(req))
         res.render('verify-explainer', {
             issuer: process.env.OKTA_OAUTH2_ISSUER,
             audience: process.env.OKTA_OAUTH2_AUDIENCE,
-            expiry: new Date(auth.decodeToken(auth.getAccessToken(req)).exp*1000).toISOString()
+            expiry: new Date(token.exp*1000).toISOString(),
+            iat: new Date(token.iat*1000).toISOString(),
+            current_time: new Date().toISOString()
         })
     });
 

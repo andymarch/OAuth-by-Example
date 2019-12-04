@@ -1,10 +1,10 @@
-<div id="flow">
+<div class="flow">
     <div class="stage">
         {{#if hasIdentity}}
         <h1 class="stageheader">Identity</h1>
          <div class="stage-content">
              <pre>{{jwt access_token}}</pre>
-             <a href="/logout">Discard identity</a>
+             <a class="linkButton" href="/logout">Discard identity</a>
          </div>
         {{else}}
         <h1 class="stageheader">Get an Identity</h1>
@@ -22,8 +22,7 @@
                         <p>Create a token as user of this service to
                         authenticate to this and related services.</p>
                         <div class="card-action">
-                        <a href="/authorization-code">Authentication Code Grant
-                        Type</a>
+                        <a href="/authorization-code" class="linkButton">Begin</a>
                     </div>
                     </div>
                 </div>
@@ -33,7 +32,7 @@
                     </div>
                     <div class="card-content">
                         <p>Create a token with the identity of this service to authenticate to another.</p>
-                        <div class="card-action"><a href="/client-credentials">Client Credentials Grant Type</a></div>
+                        <div class="card-action"><a class="linkButton" href="/client-credentials">Begin</a></div>
                     </div>
                     
                 </div>
@@ -57,25 +56,25 @@
                 <div class="action-cards">
                     <div class="action-card">
                         <div class="card-header">
-                            Validate Token
+                            Verify Token
                         </div>
                         <div class="card-content">
                             <p>Providing access tokens as JSON Web Tokens (JWTs)
                             allows for the verification of the token without calling
                             the IDP.</p>
                             <div class="card-action">
-                            <a href="/verify">Verify</a>
+                            <a class="linkButton" href="/verify">Verify</a>
                         </div>
                         </div>
                     </div>
                     <div class="action-card">
                         <div class="card-header">
-                            Introspect
+                            Introspect Token
                         </div>
                         <div class="card-content">
                             <p>An application can call the IDP to ensure that a
                             token has not been revoked.</p>
-                            <div class="card-action"><a href="/introspect">Introspect</a></div>
+                            <div class="card-action"><a class="linkButton" href="/introspect">Introspect</a></div>
                         </div>
                     </div>
                 </div>
@@ -103,7 +102,7 @@
                             <p>Once an access token is no longer needed (the user
                             logs out) revocation can be performed to invalidate that
                             token.</p>
-                            <div class="card-action"><a href="/revoke">Revoke</a></div>
+                            <div class="card-action"><a class="linkButton" href="/revoke">Revoke</a></div>
                         </div>
                     </div>
                 </div>

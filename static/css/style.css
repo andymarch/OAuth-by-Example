@@ -1,13 +1,20 @@
 html, body {
     margin: 0;
     padding: 0px;
-    background: #153b56;
+    background: #142430;
     font-family: 'Open Sans', sans-serif;
     color: #d2d2d6;
 }
 
 .content {
-    min-height: calc(100vh - 50px);
+    min-height: calc(100vh - 105px);
+    display: flex;
+    justify-content: center;
+    -webkit-animation: fadein 1.75s; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadein 1.75s; /* Firefox < 16 */
+     -ms-animation: fadein 1.75s; /* Internet Explorer */
+      -o-animation: fadein 1.75s; /* Opera < 12.1 */
+         animation: fadein 1.75s;
 }
 
 .footer {
@@ -16,33 +23,33 @@ html, body {
     justify-content: flex-end;
 }
 
+header {
+    max-height: 50px;
+}
+
+
+.masthead{
+    line-height: 50px;
+    font-size: 50px;
+    font-family: 'Open Sans', sans-serif;
+}
+
 .footer p {
     padding: 10px;
 }
 
-#flow {
+.flow {
+    font-weight: lighter;
+    width: 100%;
+    align-self: center;
+    align-content: center;
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-    align-items: center;
-    font-weight: lighter;
-}
-
-.section {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-items: center;
-    font-weight: lighter;
+    text-align: center;
 }
 
 .stage {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-items: center;
-    font-weight: lighter;
     margin-top: 20px;;
 }
 
@@ -52,10 +59,6 @@ h1,h2,h3,h4 {
     margin: 0 0;
     color: #fff;
     font-weight: 300;
-}
-
-.masthead{
-    font-weight: bolder;
 }
 
 .stage-content {
@@ -73,6 +76,54 @@ h1,h2,h3,h4 {
     text-align: center;
 }
 
+.contained {
+    width: 80%;
+}
+
+p {
+    font-weight: lighter;
+}
+
+a{
+    color: #913194;
+    text-decoration-style: dotted;
+}
+
+.code {
+    font-family: monospace;
+    font-size: large;
+    color: green
+}
+
+.callExplainer {
+    display: flex;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    justify-content: center;
+}
+
+.callExplanation {
+    text-align: right;
+    padding-right: 5px;
+    line-height: 30px;
+}
+
+.callLinker {
+    line-height: 30px;
+    text-align: right;
+}
+
+.callDetail{
+    text-align: left;
+    padding-left: 5px;
+    line-height: 30px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 60%;
+}
+
 .action-cards {
     display: -webkit-box;
     display: -moz-box;
@@ -84,28 +135,23 @@ h1,h2,h3,h4 {
 }
 
 .action-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     margin: 20px;
-    background: #142430;
+    background: #030027;
     max-width:20%;
     padding:10px;
+    padding-top: 30px;
+    padding-bottom: 20px;
     height: 100%;
     box-shadow: 0 6px 25px 0 rgba(5,5,5,.3);
     min-height: 200px;
-}
-
-p {
-    font-weight: lighter;
-}
-
-a{
-    color: #e22866;
-    text-decoration: dotted;
+    border-radius: 5px 5px;
 }
 
 .card-header {
-    display: flex;
     font-family: 'Montserrat', sans-serif;
-    text-align: center;
     margin: 0 0;
     color: #fff;
     font-size: larger;
@@ -115,15 +161,29 @@ a{
 .card-content{
     display: flex;
     flex-direction: column;
+    justify-content: center;
     flex: 1;
 }
 
+.card-content p{
+    padding-bottom: 20px;
+}
+
 .linkButton { 
-    background: none;
+    white-space: nowrap;
+    width: min-content;
+    margin-top: 20px;
+    background: #603765;
+    border-radius: 5px 5px;
     border: none;
-    color: #e22866;
+    color: #fff;
     text-decoration: dotted;
     cursor: pointer; 
+    box-shadow: 0 6px 25px 0 rgba(5,5,5,.3);
+    padding-left:10px;
+    padding-right:10px;
+    padding-top:3px;
+    padding-bottom: 3px;
 }
 
 pre {
@@ -132,4 +192,50 @@ pre {
     white-space: -o-pre-wrap; /* Opera */
     white-space: pre-wrap; /* CSS3 - Text module (Candidate Recommendation) http://www.w3.org/TR/css3-text/#white-space */
     word-wrap: break-word; /* IE 5.5+ */
+}
+
+.hint {
+    background-color: #2c363f;
+    border: 1px solid white;
+    border-radius: 10px 10px;
+    box-shadow: 0 6px 25px 0 rgba(5,5,5,.3);
+    margin: 10px;
+    width: max-content;
+    padding-right: 10px;
+    padding-left: 10px;
+    align-self: center;
+}
+
+.hint-body{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }

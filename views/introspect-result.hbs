@@ -1,21 +1,25 @@
-{{#if success}}
-Token introspection was completed successfully.
-
-Okta returned the following data.
-The <span class="code">"active" : true</span> value indicates that the provided
-access token is still valid and has not been revoked.
-<pre>
-{{json response}}
-</pre>
-<a href="/">Return</a>
-{{else}}
-Token failed introspection.
-
-Okta returned the following data.
-The <span class="code">"active" : false</span> value indicates that the provided
-access token is not longer valid.
-<pre>
-{{json response}}
-</pre>
-<a href="/">Return</a>
-{{/if}}
+<div class="flow contained">
+    <h2>Token Introspection</h2>
+    {{#if success}}
+    <p>The token passed introspection. Okta returned the following data:</p>
+    <div class="code">
+    {{json response}}
+    </div>
+    <p>
+        The <span class="code">"active":true</span> statement indicates that the provided
+    access token is still valid and has not been revoked.
+    </p>
+    {{else}}
+    <p>The token failed introspection. Okta returned the following data:</p>
+    <div class="code">
+    {{json response}}
+    </div>
+    <p>
+        The <span class="code">"active" : false</span> statement indicates that the provided
+    access token is not longer valid.
+    </p>
+    {{/if}}
+    <div>
+        <a class="linkButton" href="/">Return</a>
+    </div>
+</div>

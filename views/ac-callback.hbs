@@ -1,29 +1,69 @@
-    <h2>Authorization Code Grant</h2>
-    <p>Some explainer text.</p>
+<div class="flow contained">
+    <h2>User to Service</h2>
+    <h2>Callback</h2>
+    <p>After authenticating the user, the IDP determines if the client and user should
+    have access to the scopes that were requested. If the IDP approves; an
+    authorization code and the state value are returned in the query parameters 
+    to the callback uri (check the address bar).</p>
 
-    <div>
-        <h2>Step 4</h2>
-        <p>Validate that the returned state returned matches that sent to the
-        IDP.</p>
-        <p>Call the IDP on the backchannel with the client id and secret to
-        exchange the user provided code for a token.</p>
-        <pre>
-        process.env.OKTA_OAUTH2_ISSUER + 
-                '/v1/authorize?' +
-                'client_id=' + process.env.OKTA_OAUTH2_CLIENT_ID +
-                '&response_type=code' +
-                '&redirect_uri='+ getAddressableHost(req) +'/authorization-code/callback' + 
-                '&scope=openid profile' + 
-                '&state=' + req.session.state)
-        </pre>
-        <a href="/authorization-code/login">Begin</a>
+    <p>The client must ensure that the returned state matches that which it was
+    expecting to protect against Cross Site Request Forgery attacks as well as
+    serveral other known attacks outlined <a
+    href="https://tools.ietf.org/html/rfc6819">here</a>.</p>
+
+    <div class="callExplainer">
+        <div class="callExplanation">
+            Client Expects <br/>
+            {{sent_state}}
+        </div>
+
+        <div class="callLinker">
+            <br/>
+            matches <i class="fas fa-long-arrow-alt-right"></i><br/>
+        </div>
+
+        <div class="callDetail">
+            Query parameter contains<br/>
+            {{state}}<br/>
+        </div>
     </div>
 
-<div>State: {{state}}</div>
-<div>Code: {{code}}</div>
+    <p>Once the client is satisified the code is a legitimate response to a
+    resquest it can call the IDP's token endpoint over the backchannel to 
+    exchange the authorization code for an access token.</p>
 
-<div>Exchange Call: {{exchange}}</div>
-<form action="/authorization-code/callback" method="POST">
-    <input type="hidden" value="{{code}}" id="code" name="code"/>
-    <button type="submit">Exchange</button>
-</form>
+    <div class="callExplainer">
+        <div class="callExplanation">
+            The IDP's token endpoint endpoint post the request to<br/>
+            Accept a JSON response<br/>
+            Authenticate the client with a base64 of 'client_id : client_secret'<br/>
+            Identify the grant type of the request submitted<br/>
+            The redirect_uri on which the authorization-code was sent<br/>
+            The code provided by the front-channel
+        </div>
+
+        <div class="callLinker">
+            <i class="fas fa-long-arrow-alt-right"></i><br/>
+            <i class="fas fa-long-arrow-alt-right"></i><br/>
+            <i class="fas fa-long-arrow-alt-right"></i><br/>
+            <i class="fas fa-long-arrow-alt-right"></i><br/>
+            <i class="fas fa-long-arrow-alt-right"></i>
+        </div>
+
+        <div class="code callDetail">
+            POST {{issuer}}/v1/token <br/>
+            -H 'Accept: application/json' <br/>
+            -H 'Authorization: Basic base64({{client_id}}:client_secret)' <br/>
+            -d 'grant_type=authorization_code<br/>
+                redirect_uri={{redirect_uri}}<br/>
+                code={{code}}'
+        </div>
+    </div>
+
+    <form id="authzform" action="/authorization-code/callback" method="POST">
+        <input type="hidden" value="{{code}}" id="code" name="code"/>
+        <div>
+            <a class="linkButton" href="javascript:{}" onclick="document.getElementById('authzform').submit(); return false;">Exchange</a>
+        </div>
+    </form>
+</div>

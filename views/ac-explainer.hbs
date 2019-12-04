@@ -1,22 +1,22 @@
-<div id="flow">
-    <h2>Authorization Code Grant</h2>
+<div class="flow contained">
+    <h2>User to Service</h2>
     <p>
-        The authorization code grant is the most secure grant type for user
-    driven authorization. This grant type consists of a two channels; the front
-    and back channels. Redirects in the user's browser comprise the 
-    front-channel. This is needed to make sure the user is only entering credentials
-    into their IDP and that they are informed of the action. The back-channel is
-    a normal server to server connection between the 'client' and the 'idp',
-    this allows for the exchange of secrets (the client secret and the user token).
+    The authorization code grant is the most secure grant type for user
+    driven authorization. This grant type consists of a two channels. The front
+    channel is comprised of redirects of the user's brower. This is needed to 
+    make sure the user is only entering credentials into their IDP and that they
+    are informed of the action but any information transmitted on that channel
+    may be compromised. The back-channel is server to server connection between
+    the 'client' and the IDP, this allows for the exchange of secrets (the
+    client secret and the user token).
     </p>
 
-    <form method="POST" action="/authorization-code/login">
-        <div>
+    <p>The call below will redirect your browser to the IDP, there
+    you will need to complete authentication before being redirected back with
+    an authorization code.</p>
 
-            <div>
-                {{authorize_url}}?
-            </div>
-
+    <form id="authzform" method="POST" action="/authorization-code/login">
+        <div style="display:none">
             <div>
                 <label>client_id=</label>
                 <input id="client_id" name="client_id" value="{{client_id_web}}"/>
@@ -34,17 +34,47 @@
                 <input id="state" name="state" value="{{state}}"/>
             </div>
             <div>
-                <label>&nonce=</label>
-                <input id="nonce" name="nounce" value="{{nonce}}"/>
-            </div>
-            <div>
                 <label>&scope=</label>
                 <input type="text" value="{{scope}}" id="scope" name="scope">
             </div>
         </div>
 
+        <div class="callExplainer">
+            <div class="callExplanation">
+                The IDP's authorize endpoint to redirect the user to<br/>
+                Identifies this client to the IDP<br/>
+                Instructs the IDP to use the authorization code flow<br/>
+                Where on the client to redirect the user back to<br/>
+                A client session identifier to protect against CSRF attacks<br/>
+                The access this client is requesting
+            </div>
+
+            <div class="callLinker">
+                <i class="fas fa-long-arrow-alt-right"></i><br/>
+                <i class="fas fa-long-arrow-alt-right"></i><br/>
+                <i class="fas fa-long-arrow-alt-right"></i><br/>
+                <i class="fas fa-long-arrow-alt-right"></i><br/>
+                <i class="fas fa-long-arrow-alt-right"></i><br/>
+                <i class="fas fa-long-arrow-alt-right"></i>
+            </div>
+
+            <div class="code callDetail">
+                GET {{authorize_url}}<br/>
+                ?client_id={{client_id_web}}<br/>
+                &response_type=code<br/>
+                &redirect_uri={{redirect_uri}}<br/>
+                &state={{state}}<br/>
+                &scope={{scope}}<br/>
+            </div>
+        </div>
+
         <div>
-            <input type="submit" class="linkButton" value="Begin"/>
+            <a class="linkButton" href="javascript:{}" onclick="document.getElementById('authzform').submit(); return false;">Begin</a>
         </div>
     </form>
+    <div class="hint">
+        <span class="hint-head"><i class="far fa-lightbulb"></i> Hint</span>
+        <p class="hint-body">If you are already logged into your Okta tenant you may not seen an
+        authentication page. Try in a private browser tab.</p>
+    </div>
 </div>

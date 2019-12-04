@@ -1,22 +1,43 @@
-<p>Introspection of a token performs the validation of a token at the IDP. In
-addition to the normal validation a additional check is made to ensure that the
-token has not been revoked. This means that a token which would otherwise would
-be accepted can be invalidated.</p>
+<div class="flow contained">
+    <h2>Token Introspection</h2>
+    <p>Introspection of a token performs the validation of a token at the IDP. In
+    addition to the normal validation a additional check is made to ensure that the
+    token has not been revoked. This means that a token which would otherwise would
+    be accepted can be invalidated.</p>
 
-<p>The address for introspection can be found on
-<a href="{{issuer}}/.well-known/oauth-authorization-server">the .well-known
-document</a> for our issuer. Within this we can look for the introspection_endpoint.</p>
-<p>Introspection is an authenticated action so the id and secret of the client
-should be included with the request.</p>
+    <p>The address for introspection can be found on
+    <a href="{{issuer}}/.well-known/oauth-authorization-server">the .well-known
+    document</a> for our issuer. Within this we can look for the introspection_endpoint.</p>
+    <p>Introspection is an authenticated action so the id and secret of the client
+    should be included with the request.</p>
 
-<div class="prewrap">
-<pre>
-    POST {{issuer}}/v1/introspect \
-    -H 'Accept: application/json' \
-    -H 'Authorization: Basic base64({{client_id}}:client_secret)' \
-    -H 'cache-control: no-cache' \
-    -d 'token=token_type_hint=access_token&token={{access_token}}'
-</pre>
+    <div class="callExplainer">
+        <div class="callExplanation">
+            The IDP's introspect endpoint endpoint post the request to<br/>
+            Accept a JSON response<br/>
+            Authentication with a base64 of 'client_id : client_secret'<br/>
+            Identify the type of token which is being submitted<br/>
+            The token to be introspected
+        </div>
+
+        <div class="callLinker">
+            <i class="fas fa-long-arrow-alt-right"></i><br/>
+            <i class="fas fa-long-arrow-alt-right"></i><br/>
+            <i class="fas fa-long-arrow-alt-right"></i><br/>
+            <i class="fas fa-long-arrow-alt-right"></i><br/>
+            <i class="fas fa-long-arrow-alt-right"></i>
+        </div>
+
+        <div class="code callDetail">
+            POST {{issuer}}/v1/introspect <br/>
+            -H 'Accept: application/json' <br/>
+            -H 'Authorization: Basic base64({{client_id}}:client_secret)' <br/>
+            -d 'token_type_hint=access_token<br/>
+            &token={{access_token}}'
+        </div>
+    </div>
+
+    <div>
+        <a href="/introspect/submit" class="linkButton">Perform introspection</a>
+    </div>
 </div>
-
-<a href="/introspect/submit">Perform introspection</a>
