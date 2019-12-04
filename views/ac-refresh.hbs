@@ -1,12 +1,49 @@
-    <h2>Submit Refresh</h2>
-    <p>Some explainer text.</p>
+<div class="flow contained">
+    <h2>Token Refresh</h2>
 
-    <div>
-        <pre>
-            //todo
-        </pre>
+    <p>Presenting a refresh token to the IDP token endpoint allows the issuance
+    of a new access token even if the existing access token is expired or
+    invalid. This allows for applications to maintain authorization to access
+    resources without needing to reauthenticate the user.</p>
+
+    <p>Refresh tokens are only issued to clients which are able to keep them
+    confidential and always at the discretion of the IDP.</p>
+
+    <p>The issuance of refresh tokens is standardized by OpenID Connect with the
+    use of the <span class="code">offline_access</span> scope.</p>
+
+    <div class="callExplainer">
+        <div class="callExplanation">
+            The IDP's token endpoint endpoint post the request to<br/>
+            Accept a JSON response<br/>
+            Authenticate the client with a base64 of 'client_id : client_secret'<br/>
+            Identify the grant type of the request submitted<br/>
+            The redirect_uri on which the authorization-code was sent<br/>
+            The code provided by the front-channel
+        </div>
+
+        <div class="callLinker">
+            <i class="fas fa-long-arrow-alt-right"></i><br/>
+            <i class="fas fa-long-arrow-alt-right"></i><br/>
+            <i class="fas fa-long-arrow-alt-right"></i><br/>
+            <i class="fas fa-long-arrow-alt-right"></i><br/>
+            <i class="fas fa-long-arrow-alt-right"></i><br/>
+            <i class="fas fa-long-arrow-alt-right"></i>
+        </div>
+
+        <div class="code callDetail">
+            POST {{issuer}}/v1/token <br/>
+            -H 'Accept: application/json' <br/>
+            -H 'Authorization: Basic base64({{client_id}}:client_secret)' <br/>
+            -d 'grant_type=refresh_token<br/>
+                refresh_token={{refresh_token}}<br/>
+                scope={{scope}}'
+        </div>
     </div>
 
-<form action="/authorization-code/refresh" method="POST">
-    <button type="submit">Exchange</button>
-</form>
+    <form id="authzform" action="/authorization-code/refresh" method="POST">
+        <div>
+            <a class="linkButton" href="javascript:{}" onclick="document.getElementById('authzform').submit(); return false;">Begin</a>
+        </div>
+    </form>
+</div>

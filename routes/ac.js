@@ -108,7 +108,12 @@ module.exports = function (_auth){
     })
 
     router.get('/refresh', auth.ensureAuthenticated(), (req,res) => {
-        res.render('ac-refresh',req.userContext.refresh_token)
+        res.render('ac-refresh',{
+            refresh_token:req.userContext.tokens.refresh_token,
+            scope:'openid profile demonstration:perform offline_access',
+            client_id: process.env.OKTA_OAUTH2_CLIENT_ID_WEB,
+            issuer: process.env.OKTA_OAUTH2_ISSUER
+        })
     })
 
     router.post('/refresh', auth.ensureAuthenticated(), async (req,res) => {

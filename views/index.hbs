@@ -3,7 +3,14 @@
         {{#if hasIdentity}}
         <h1 class="stageheader">Identity</h1>
          <div class="stage-content">
-             <pre>{{jwt access_token}}</pre>
+            <p>Access Token descibes:</p>
+            <p>Subject {{sub}}</p>
+            <p>Expires {{exp}}</p>
+
+            {{#if hasRefreshToken}}
+            <a class="linkButton" href="/authorization-code/refresh">Refresh access</a>
+            {{/if}}
+
              <a class="linkButton" href="/logout">Discard identity</a>
          </div>
         {{else}}
@@ -41,7 +48,7 @@
         {{/if}}
     </div>
     
-    {{#if hasIdentity}}
+    {{#if sub}}
         <div class="stage">
             <h1>Validate the token</h1>
 
@@ -59,9 +66,9 @@
                             Verify Token
                         </div>
                         <div class="card-content">
-                            <p>Providing access tokens as JSON Web Tokens (JWTs)
-                            allows for the verification of the token without calling
-                            the IDP.</p>
+                            <p>Providing access tokens as signed JSON Web Tokens (JWTs)
+                            allows for the verification of the token without a
+                            round trip call to the IDP.</p>
                             <div class="card-action">
                             <a class="linkButton" href="/verify">Verify</a>
                         </div>
@@ -72,8 +79,11 @@
                             Introspect Token
                         </div>
                         <div class="card-content">
-                            <p>An application can call the IDP to ensure that a
-                            token has not been revoked.</p>
+                            <p>
+                                An application can call the IDP's introspection
+                            endpoint to ensure that a token has not been
+                            revoked.
+                            </p>
                             <div class="card-action"><a class="linkButton" href="/introspect">Introspect</a></div>
                         </div>
                     </div>
@@ -85,7 +95,7 @@
                 <div class="stage-content">
                 <div class="stage-explainer">
                     <p>
-                        Once an access token is no longer needed revocation can
+                        Once a token is no longer needed revocation can
                         be performed to invalidate that token.
                     </p>
                     <p>
