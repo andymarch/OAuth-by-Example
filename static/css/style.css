@@ -8,7 +8,7 @@ html, body {
 }
 
 .content {
-    min-height: calc(100vh - 105px);
+    min-height: calc(100vh - 150px);
     display: flex;
     justify-content: center;
     -webkit-animation: fadein 1.75s; /* Safari, Chrome and Opera > 12.1 */
@@ -25,14 +25,23 @@ html, body {
 }
 
 header {
-    max-height: 50px;
+    max-height: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
 }
 
+#titleImg{
+    width: 100px;
+}
 
 .masthead{
+    padding-top: 25px;
     line-height: 50px;
     font-size: 50px;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    vertical-align: middle;
 }
 
 .footer p {
