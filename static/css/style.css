@@ -125,6 +125,11 @@ a{
     max-width: 60%;
 }
 
+.jwt {
+    white-space: pre-wrap;
+    line-height: inherit;
+}
+
 .action-cards {
     display: -webkit-box;
     display: -moz-box;

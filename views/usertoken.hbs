@@ -1,25 +1,51 @@
-{{#if idToken}}
-    <h2>ID Token</h2>
-    <img src="/static/images/openid_logo.png"/>
-    <pre>{{jwt idToken}}</pre>
-{{else}}
-    <p>oidc to get the id token</p>
-    <a href="/authorization-code/oidc-login">Begin</a>
-{{/if}}
+<div class="flow contained">
+    <h2>User to Service</h2>
+    <h2>Tokens</h2>
 
-<h2>Access Token</h2>
-<img src="/static/images/oauth_logo.png"/>
-<pre>{{jwt accessToken}}</pre>
-
-{{#if refreshToken}}
-    <h2>Refresh Token</h2>
-    <pre>{{refreshToken}}</pre>
-    <a href="/authorization-code/refresh">Refresh access token</a>
-{{else}}
     {{#if idToken}}
-        <p>oidc to get the refresh token</p>
-    <a href="/authorization-code/oidc-login-withrefresh">Begin</a>
+        <h2>ID Token</h2>
+        <p>The id token is part of the OpenID Connect specification. The id
+        token describes the user to client application providing values such as
+        the preferred_username, name and authentication method (amr). The
+        audience (aud) for an id token is always the application which requested
+        the authorization and the subject (sub) is the unique id by which the
+        user is known by the IDP.</p>
+        <div class="callExplainer">
+            <pre class="code callDetail jwt">{{jwt idToken}}</pre>
+        </div>
     {{/if}}
-{{/if}}
 
-<a href="/">Return</a>
+    <h2>Access Token</h2>
+    <p>
+        Your access token contains a number of claims which describe who
+                issued it (iss), the permissions is grants (scp), who it is
+                intended for (aud), who it describes (uid,sub), the client that
+                requested id (cid) and the periods for which it is valid
+                (iat)(exp).
+    </p>
+        <div class="callExplainer">
+            <pre class="code callDetail jwt">{{jwt accessToken}}</pre>
+        </div>
+
+    {{#if refreshToken}}
+        <h2>Refresh Token</h2>
+        <p>The refresh token is an opaque token which can be submitted to the
+        IDP to request a new access token if the current one is expired or invalidated.</p>
+        <div class="callExplainer">
+            <pre class="code callDetail">{{refreshToken}}</pre>
+        </div>
+    {{/if}}
+
+    {{#if idToken}}
+    {{else}}
+        <div class="hint">   
+            <span class="hint-head"><i class="far fa-lightbulb"></i> Hint</span>
+            <p class="hint-body">Request additional scopes 'openid' and
+            'offline_access' to get id and refresh tokens.</p>
+        </div>
+    {{/if}}
+
+    <div>
+        <a class="linkButton" href="/">Return</a>
+    </div>
+</div>

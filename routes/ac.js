@@ -15,7 +15,7 @@ module.exports = function (_auth){
             client_id_web: process.env.OKTA_OAUTH2_CLIENT_ID_WEB,
             redirect_uri: auth.getAddressableHost(req) +'/authorization-code/callback',
             response_type: 'code',
-            scope: 'demonstration:perform',
+            scope: 'demonstration:perform openid profile offline_access',
             state: uuidv1()
         });
     });
@@ -42,7 +42,13 @@ module.exports = function (_auth){
                 }
             }
             else {
-                    res.render('ac-callback',{state:req.query.state, code: req.query.code, sent_state: req.session.state})
+                    res.render('ac-callback',{
+                        state:req.query.state,
+                        code: req.query.code,
+                        sent_state: req.session.state,
+                        redirect_uri: auth.getAddressableHost(req) +'/authorization-code/callback',
+                        client_id: process.env.OKTA_OAUTH2_CLIENT_ID_WEB
+                    })
             }
         }
         else{

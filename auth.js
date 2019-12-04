@@ -16,12 +16,12 @@ class Auth {
                 })
                 .catch(err => {
                     console.log(err)
-                    res.redirect("/login")
+                    res.redirect("/")
                 });      
             }
             else{
                 console.log("no context")
-                res.redirect("/login")
+                res.redirect("/")
             }
         }
     }
@@ -42,7 +42,7 @@ class Auth {
         }
         if(req.session.user){
             if(req.session.user.id_token){
-                var token = decodeToken(req.session.user.id_token)
+                var token = () =>{decodeToken(req.session.user.id_token)}
                 req.userContext = {
                     'userinfo': {
                         'sub' : token.sub,

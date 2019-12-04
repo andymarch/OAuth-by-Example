@@ -15,14 +15,14 @@ app.engine('hbs',  hbs( {
     partialsDir: __dirname + '/views/partials/',
     helpers: {
         json: function(json){
-            return JSON.stringify(json, undefined, '\t');
+            return JSON.stringify(json, undefined, '2');
           },
           jwt: function (token){
               var atob = require('atob');
               if (token != null) {
                   var base64Url = token.split('.')[1];
                   var base64 = base64Url.replace('-', '+').replace('_', '/');
-                  return JSON.stringify(JSON.parse(atob(base64)), undefined, '\t');
+                  return JSON.stringify(JSON.parse(atob(base64)), undefined, ' ');
               } else {
                   return "Invalid or empty token was parsed"
               }
