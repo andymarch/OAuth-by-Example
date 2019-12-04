@@ -26,20 +26,9 @@ module.exports = function (_auth){
 
 
     router.get("/logout", (req, res) => {
-        if(req.userContext){
-            const tokenSet = req.userContext.tokens;
-            const id_token_hint = tokenSet.id_token
+        if(req.session){
             req.session.destroy();
-            if(id_token_hint){
-            res.redirect(process.env.OKTA_OAUTH2_ISSUER+'/v1/logout?id_token_hint='
-                + id_token_hint
-                + '&post_logout_redirect_uri='
-                + encodeURI(auth.getAddressableHost(req))
-                );
-            }
-            else{
             res.redirect("/")
-            }
         }
         else {
             res.redirect("/")
