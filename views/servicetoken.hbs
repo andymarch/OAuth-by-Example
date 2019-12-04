@@ -1,4 +1,17 @@
-<h2>Access Token</h2>
-<pre>{{jwt accessToken}}</pre>
-
-<a href="/">Return</a>
+<div class="flow contained">
+    <h2>Service to Service</h2>
+    <h2>Access Token</h2>
+    <p>
+        Your access token contains a number of claims which describe who
+                issued it (iss), the permissions is grants (scp), who it is
+                intended for (aud), who it describes (uid,sub), the client that
+                requested id (cid) and the periods for which it is valid
+                (iat)(exp).
+    </p>
+    <div class="callExplainer">
+        <pre class="code callDetail jwt">{{jwt accessToken}}</pre>
+    </div>
+    <div>
+        <a class="linkButton" href="/">Return</a>
+    </div>
+</div>

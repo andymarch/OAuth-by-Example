@@ -1,14 +1,38 @@
-<div>
-    <h2>Client Credentials Grant</h2>
-    <p>some explainer text.</p>
-    <pre>
-        curl --request POST \
-        --url https://${yourOktaDomain}/oauth2/default/v1/token \
-        --header 'accept: application/json' \
-        --header 'authorization: Basic **base64 of client_id & client_secret' \
-        --header 'cache-control: no-cache' \
-        --header 'content-type: application/x-www-form-urlencoded' \
-        --data 'grant_type=client_credentials&scope=customScope'
-    </pre>
-    <a href="/client-credentials/login">Begin</a>
+<div class="flow contained">
+    <h2>Service to Service</h2>
+    <p>The client credentials grant type allows a client application to directly
+    contact the IDP's token endpoint to retrieve a token. This call is
+    authenticated using the client id and client secret.</p>
+
+    <div class="callExplainer">
+            <div class="callExplanation">
+                The IDP's token endpoint to send the request to<br/>
+                The body is url-encoded<br/>
+                Expect a JSON response<br/>
+                Authenticate the client with a base64 of 'client_id : client_secret'<br/>
+                The OAuth grant type is client credentials<br/>
+                The access this client is requesting
+            </div>
+
+            <div class="callLinker">
+                <i class="fas fa-long-arrow-alt-right"></i><br/>
+                <i class="fas fa-long-arrow-alt-right"></i><br/>
+                <i class="fas fa-long-arrow-alt-right"></i><br/>
+                <i class="fas fa-long-arrow-alt-right"></i><br/>
+                <i class="fas fa-long-arrow-alt-right"></i><br/>
+                <i class="fas fa-long-arrow-alt-right"></i>
+            </div>
+
+            <div class="code callDetail">
+                POST {{issuer}}/v1/token <br/>
+                -H 'content-type: application/x-www-form-urlencoded'<br/>
+                -H 'Accept: application/json' <br/>
+                -H 'Authorization: Basic base64({{client_id}}:client_secret)' <br/>
+                -d 'grant_type=client_credentials<br/>
+                &scope={{scope}}'
+            </div>
+        </div>
+    <div>
+        <a class="linkButton" href="/client-credentials/login">Begin</a>
+    </div>
 </div>

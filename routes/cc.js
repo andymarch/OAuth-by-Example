@@ -8,7 +8,11 @@ module.exports = function (_auth){
     var auth = _auth;
 
     router.get('/', (req, res) => {
-        res.render('cc-explainer');
+        res.render('cc-explainer', {
+            issuer: process.env.OKTA_OAUTH2_ISSUER,
+            client_id: process.env.OKTA_OAUTH2_CLIENT_ID_WEB,
+            scope: 'demonstration:perform'
+        });
     });
 
     router.get("/login", async (req,res) => {
