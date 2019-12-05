@@ -13,16 +13,18 @@ production applications. Certified implementations can be found
 
 ## Getting Started
 
+>***Prestep***
+>
+>You will need a verified Heroku account to continue, please create one [here](https://signup.heroku.com) if
+>you do not already have one and make sure you are signed in.
+>
+>While verification will require you to enter payment information this
+>demonstration only provisions free resources and will not cost you anything to
+>run.
+
 This workshop uses a simple node application deployed to Heroku to guide you.
 To provision you an instance of Okta to use with the example we are using the
 [Beta Okta Heroku add on](https://devcenter.heroku.com/articles/okta).
-
-Prestep
-You will need a Heroku account to continue, please create one here if you do not
-already have one and make sure you are signed in.
-
-This demonstration only provisions free resources and will not cost you anything
-to run.
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
@@ -57,7 +59,7 @@ you can compare the different tiers [here](https://developer.okta.com/pricing/).
 Now that your application is fully deployed on Heroku you have a public facing
 address with which you can explore the workshop. 
 
-Press ```view app``` in your Heroku console to launch the application.
+Press ```open app``` in your Heroku console to launch the application.
 
 ## Exercises
 
@@ -75,6 +77,8 @@ Press ```view app``` in your Heroku console to launch the application.
   offline_access``` these include openid connect standard scopes so you will
   receive an id token to describe your user to the application as well as an access token.
 - Enter the credentials of your test user.
+- You are redirected back to the application with an authorization code. Click
+  ```exchange``` to exchange this authorization code for tokens.
 - Note the information returned on id token:
     - sub is the unique id of the user at the IDP
     - aud is the client id of the application
