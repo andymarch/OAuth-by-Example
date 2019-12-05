@@ -1,7 +1,13 @@
 <div class="flow contained">
     <h2>Token Verification</h2>
     {{#if success}}
-    <p>The token passed verification.</p>
+    <p>The token passed verification in {{performance}}ms.</p>
+
+    <div class="hint">   
+        <span class="hint-head"><i class="far fa-lightbulb"></i> Hint</span>
+        <p class="hint-body">Try repeating verification, the first request needs
+        to communicate with the authorization server to get the signing keys.</p>
+    </div>
     {{else}}
     <p>Token failed verification.</p>
     {{/if}}

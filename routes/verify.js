@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const OktaJwtVerifier = require('@okta/jwt-verifier');
+const { PerformanceObserver, performance } = require('perf_hooks');
 
 module.exports = function (_auth){
     var auth = _auth;
@@ -22,11 +23,14 @@ module.exports = function (_auth){
     });
 
     router.get('/submit',(req,res) =>{
+        var t0 = performance.now();      
         oktaJwtVerifier.verifyAccessToken(
-            req.userContext.tokens.access_token,
+            auth.getAccessToken(req),
             process.env.OKTA_OAUTH2_AUDIENCE)                
             .then(jwt => {
-                res.redirect("/verify/success")
+                var t1 = performance.now();
+                req.session.performance = t1 - t0             
+                res.redirect("/verify/success?")
             })
             .catch(err => {
                 console.log(err)
@@ -35,7 +39,9 @@ module.exports = function (_auth){
     })
 
     router.get('/success',(req,res)=>{
-        res.render('verify-result',{success:true})
+        var perf = req.session.performance
+        req.session.performance = null
+        res.render('verify-result',{success:true,performance: perf})
     })
 
     router.get('/failed',(req,res)=>{

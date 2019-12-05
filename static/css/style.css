@@ -41,7 +41,11 @@ header {
     line-height: 50px;
     font-size: 50px;
     font-family: 'Montserrat', sans-serif;
-    vertical-align: middle;
+}
+
+.masthead a{
+    color: white;
+    text-decoration: none;
 }
 
 .footer p {
